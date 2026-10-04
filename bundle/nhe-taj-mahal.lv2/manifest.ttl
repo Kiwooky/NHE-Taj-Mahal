@@ -1,7 +1,44 @@
 @prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 <https://github.com/Kiwooky/NHE-Taj-Mahal>
     a lv2:Plugin , lv2:ReverbPlugin ;
     lv2:binary <nhe-taj-mahal_dsp.so> ;
     rdfs:seeAlso <nhe-taj-mahal.ttl> , <modgui.ttl> .
+
+# Factory presets
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-taj-mahal-1988-factory>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:seeAlso <presets.ttl> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-the-size-of-the-universe>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:seeAlso <presets.ttl> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-big-empty-room>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:seeAlso <presets.ttl> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-negative-reflections>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:seeAlso <presets.ttl> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-houses-of-worship>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:seeAlso <presets.ttl> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-no-place-too-big>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:seeAlso <presets.ttl> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-spacy-strummer>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:seeAlso <presets.ttl> .

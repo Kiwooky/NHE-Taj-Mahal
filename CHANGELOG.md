@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 — 2026-10-04
+
+- Seven factory presets: Taj Mahal (1988 factory), The size of the universe, Big empty room,
+  Negative reflections, Houses of Worship, No place too big, Spacy strummer. They set every
+  knob and switch except bypass, so loading one never switches the effect on or off.
+
 ## 1.0.0 — 2026-10-04
 
 First release under its own identity (URI `https://github.com/Kiwooky/NHE-Taj-Mahal`,

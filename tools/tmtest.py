@@ -143,7 +143,22 @@ def main():
             check('torture vintage=%d @%d finite' % (v, sr), finite(l, r) and np.abs(l).max() < 30,
                   'peak %.1f' % np.abs(l).max())
 
-    # 10. silence in, silence out ------------------------------------------------
+    # 10. every factory preset: finite, sensible level, sets every control -----
+    import re
+    ttl = open(os.path.join(HERE, '..', 'bundle', 'nhe-taj-mahal.lv2', 'presets.ttl')).read()
+    blocks = re.findall(r'rdfs:label "([^"]+)".*?lv2:port (.*?) \.\n', ttl, flags=re.S)
+    check('presets found', len(blocks) >= 1, '%d presets' % len(blocks))
+    sr = 48000
+    pn = np.zeros(sr * 8); pn[:sr * 2] = rs.randn(sr * 2) * 0.25
+    for name, ports in blocks:
+        vals = dict((k, float(v)) for k, v in re.findall(r'lv2:symbol "(\w+)" ;\s*pset:value ([-\d.]+)', ports))
+        check('preset "%s" sets every control but bypass' % name,
+              set(vals) == set(ORDER) - {'lv2_enabled'}, ','.join(sorted(set(ORDER) ^ set(vals) ^ {'lv2_enabled'})))
+        l, r = run(pn, sr, **vals)
+        pk = db(max(np.abs(l).max(), np.abs(r).max()))
+        check('preset "%s" finite and in range' % name, finite(l, r) and pk < 6, 'peak %.1f dBFS' % pk)
+
+    # 11. silence in, silence out ------------------------------------------------
     sr = 48000
     l, r = run(np.zeros(sr * 3), sr)
     check('silence stays silent', np.abs(np.r_[l, r]).max() < 1e-6)

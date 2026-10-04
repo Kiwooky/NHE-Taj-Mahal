@@ -33,6 +33,20 @@ The knobs use the original hardware's scales, so the factory preset's numbers dr
 
 Mono in, stereo out.
 
+## Factory presets
+
+| Preset | Character |
+| --- | --- |
+| Taj Mahal (1988 factory) | The original: 100% wet chorused hall, 81 ms pre-delay |
+| No place too big | The same hall blended under your dry signal |
+| The size of the universe | Longest decay and pre-delay: an endless wash |
+| Houses of Worship | Slow, deep chorus into a long, late-arriving hall |
+| Spacy strummer | Shorter, half-diffused space for strummed parts |
+| Big empty room | Short decay, no diffusion, slow chorus with heavy feedback |
+| Negative reflections | Shortest decay, maximum pre-delay and chorus depth: a wobbling slap |
+
+Presets set every control except On/Off, so loading one never bypasses the effect.
+
 ## Install
 
 **Test builds:** upload `mod-plugin-builder/nhe-taj-mahal/nhe-taj-mahal.mk` to <https://builder.mod.audio/buildroot> with your MOD connected over USB, then click Install. Set `NHE_TAJ_MAHAL_VERSION` in that file to the commit you want to build.

@@ -1,0 +1,7 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal>
+    a lv2:Plugin , lv2:ReverbPlugin ;
+    lv2:binary <nhe-taj-mahal_dsp.so> ;
+    rdfs:seeAlso <nhe-taj-mahal.ttl> , <modgui.ttl> .

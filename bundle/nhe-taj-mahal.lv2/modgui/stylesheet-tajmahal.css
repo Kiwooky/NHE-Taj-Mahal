@@ -1,0 +1,57 @@
+/* Taj Mahal - New Horizon Electronics (600 x 350) */
+.tajmahal{{{cns}}} {
+    position: absolute;
+    width: 600px;
+    height: 350px;
+    background-image: url(/resources/background.jpg{{{ns}}});
+    background-size: 600px 350px;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+}
+/* knobs: 62x62 frames, 65 frames in one row (MOD: frames = strip width / element width) */
+.tajmahal{{{cns}}} .tm-knob {
+    position: absolute;
+    width: 62px;
+    height: 62px;
+    background-image: url(/resources/knob.png{{{ns}}});
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    z-index: 21;
+}
+.tajmahal{{{cns}}} .tm-predelay { left: 52px; top: 126px; }
+.tajmahal{{{cns}}} .tm-decay { left: 131px; top: 126px; }
+.tajmahal{{{cns}}} .tm-diffusion { left: 211px; top: 126px; }
+.tajmahal{{{cns}}} .tm-chorus_speed { left: 321px; top: 126px; }
+.tajmahal{{{cns}}} .tm-chorus_depth { left: 399px; top: 126px; }
+.tajmahal{{{cns}}} .tm-chorus_feedback { left: 480px; top: 126px; }
+.tajmahal{{{cns}}} .tm-direct { left: 399px; top: 245px; }
+.tajmahal{{{cns}}} .tm-reverb_level { left: 477px; top: 245px; }
+
+/* buttons: 95x29, strip = [LED off | LED on] */
+.tajmahal{{{cns}}} .tm-button {
+    position: absolute;
+    width: 95px;
+    height: 29px;
+    top: 261px;
+    background-image: url(/resources/button.png{{{ns}}});
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    z-index: 21;
+}
+.tajmahal{{{cns}}} .tm-onoff { left: 45px; }
+.tajmahal{{{cns}}} .tm-vintage { left: 156px; }
+.tajmahal{{{cns}}} .tm-tails { left: 267px; }
+/* Vintage / Tails use mod-widget="switch" (a plain click always toggles;
+   the default film widget ignores clicks with a little mouse movement):
+   class "on" = switched on -> LED lit */
+.tajmahal{{{cns}}} .tm-vintage.off, .tajmahal{{{cns}}} .tm-tails.off { background-position: 0 0; }
+.tajmahal{{{cns}}} .tm-vintage.on,  .tajmahal{{{cns}}} .tm-tails.on  { background-position: -95px 0; }
+
+/* bypass widget: class "on" = bypassed -> LED off; "off" = active -> LED lit */
+.tajmahal{{{cns}}} .tm-onoff.on  { background-position: 0 0; }
+.tajmahal{{{cns}}} .tm-onoff.off { background-position: -95px 0; }
+
+.tajmahal{{{cns}}} .mod-pedal-input,
+.tajmahal{{{cns}}} .mod-pedal-output { top: 125px; }

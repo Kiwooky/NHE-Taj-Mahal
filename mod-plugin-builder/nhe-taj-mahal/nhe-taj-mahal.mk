@@ -14,7 +14,12 @@
 ######################################
 
 NHE_TAJ_MAHAL_VERSION = COMMIT_HASH_HERE
-NHE_TAJ_MAHAL_SITE = $(call github,Kiwooky,NHE-Taj-Mahal,$(NHE_TAJ_MAHAL_VERSION))
+NHE_TAJ_MAHAL_SITE = https://github.com/Kiwooky/NHE-Taj-Mahal.git
+NHE_TAJ_MAHAL_SITE_METHOD = git
+NHE_TAJ_MAHAL_GIT_SUBMODULES = y
+# fetch git submodules (DPF), as MOD's own packages do (mod-plugin-builder)
+NHE_TAJ_MAHAL_PRE_DOWNLOAD_HOOKS += MOD_PLUGIN_BUILDER_DOWNLOAD_WITH_SUBMODULES
+
 NHE_TAJ_MAHAL_BUNDLES = nhe-taj-mahal.lv2
 
 NHE_TAJ_MAHAL_TARGET_MAKE = $(TARGET_MAKE_ENV) $(TARGET_CONFIGURE_OPTS) $(MAKE) NOOPT=true -C $(@D)

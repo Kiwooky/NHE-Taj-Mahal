@@ -62,7 +62,7 @@ make                 # builds bin/nhe-taj-mahal.lv2
 make install DESTDIR=/path PREFIX=/usr
 ```
 
-DPF (DISTRHO Plugin Framework) is vendored in `dpf/` at commit `61d38eb638449647fb8395a35c5b8dab7e981ba7`, so no submodules are needed. Cross-compile by setting `CC`, `CXX` and `CXXFLAGS` as usual.
+DPF (DISTRHO Plugin Framework) is a git submodule in `dpf/`, pinned at commit `61d38eb638449647fb8395a35c5b8dab7e981ba7`. Clone with `git clone --recursive`, or run `git submodule update --init --recursive` after cloning. Cross-compile by setting `CC`, `CXX` and `CXXFLAGS` as usual.
 
 Testing, the pedal-face workflow and the release checklist are in [docs/development.md](docs/development.md).
 
@@ -76,7 +76,7 @@ Testing, the pedal-face workflow and the release checklist are in [docs/developm
 | `mod-plugin-builder/` | Package file for MOD's builder and plugin store |
 | `tools/` | Offline LV2 test host, audio test suite, face renderer, knob filmstrip builder |
 | `docs/` | Sound design and mappings, development process, release checklist |
-| `dpf/` | Vendored DISTRHO Plugin Framework (ISC) |
+| `dpf/` | DISTRHO Plugin Framework, git submodule (ISC) |
 
 ## Licence
 

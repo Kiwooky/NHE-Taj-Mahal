@@ -13,7 +13,7 @@
 #
 ######################################
 
-NHE_TAJ_MAHAL_VERSION = COMMIT_HASH_HERE
+NHE_TAJ_MAHAL_VERSION = 52c058ad008a3992f750ad2e019139f9450ce609
 NHE_TAJ_MAHAL_SITE = https://github.com/Kiwooky/NHE-Taj-Mahal.git
 NHE_TAJ_MAHAL_SITE_METHOD = git
 NHE_TAJ_MAHAL_GIT_SUBMODULES = y

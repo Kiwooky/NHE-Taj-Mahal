@@ -1,4 +1,4 @@
-/* Taj Mahal - New Horizon Electronics (600 x 350) */
+/* Taj Mahal - New Horizon Electronics (600 x 350; all images are 2x for retina) */
 .tajmahal{{{cns}}} {
     position: absolute;
     width: 600px;
@@ -8,12 +8,14 @@
     background-repeat: no-repeat;
     border-radius: 4px;
 }
-/* knobs: 62x62 frames, 65 frames in one row (MOD: frames = strip width / element width) */
+/* knobs: retina strip, 65 frames of 124x124 drawn at 62x62 (background-size scales it;
+   MOD counts frames from the background-size height and the element width) */
 .tajmahal{{{cns}}} .tm-knob {
     position: absolute;
     width: 62px;
     height: 62px;
     background-image: url(/resources/knob.png{{{ns}}});
+    background-size: 4030px 62px;
     background-repeat: no-repeat;
     background-position: 0 0;
     cursor: pointer;
@@ -28,13 +30,14 @@
 .tajmahal{{{cns}}} .tm-direct { left: 399px; top: 245px; }
 .tajmahal{{{cns}}} .tm-reverb_level { left: 477px; top: 245px; }
 
-/* buttons: 95x29, strip = [LED off | LED on] */
+/* buttons: 95x29, strip = [LED off | LED on], 2x art (380x58) scaled by background-size */
 .tajmahal{{{cns}}} .tm-button {
     position: absolute;
     width: 95px;
     height: 29px;
     top: 261px;
     background-image: url(/resources/button.png{{{ns}}});
+    background-size: 190px 29px;
     background-repeat: no-repeat;
     background-position: 0 0;
     cursor: pointer;

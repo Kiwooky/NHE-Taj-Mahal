@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 — 2026-10-11
+
+- Retina face: every image is now 2x and full colour, drawn at the same 600 x 350 size.
+  - Knob: 65 frames of 124 px built from the new static body and moving knurl/marker layers
+    (`assets/source/knob_*@2x.png`, `tools/knob_strip_layers.py`). Replaces the 256-colour strip.
+  - Background: face v4 at 1200 x 700. Buttons: v2 at 2x (strip 380 x 58).
+  - Screenshot and thumbnail re-rendered in full colour; `tools/render.py` no longer reduces to 256 colours.
+
 ## 1.0.1 — 2026-10-04
 
 - Seven factory presets: Taj Mahal (1988 factory), The size of the universe, Big empty room,

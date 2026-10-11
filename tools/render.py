@@ -50,7 +50,6 @@ async def main():
 
 asyncio.run(main())
 im = Image.open(os.path.join(ROOT, 'build', 'screenshot_full.png')).convert('RGB')
-im.quantize(256, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.FLOYDSTEINBERG).save(
-    OUT + '/screenshot-tajmahal.png', optimize=True)
+im.save(OUT + '/screenshot-tajmahal.png', optimize=True)   # full colour: 256 colours bands the gradients
 t = im.copy(); t.thumbnail((256, 64), Image.LANCZOS); t.save(OUT + '/thumbnail-tajmahal.png', optimize=True)
 print('screenshot and thumbnail written to', OUT)

@@ -69,7 +69,7 @@ def main():
 
     # 1. preset: pre-delay, decay, stability, at every sample rate -------------
     rts = []
-    for sr in (44100, 48000, 96000):
+    for sr in (44100, 48000, 96000, 176400, 192000):
         x = np.zeros(sr * 16); x[0] = 1.0
         l, r = run(x, sr)
         t = rt60(l, r, sr); rts.append(t)
@@ -157,6 +157,18 @@ def main():
         l, r = run(pn, sr, **vals)
         pk = db(max(np.abs(l).max(), np.abs(r).max()))
         check('preset "%s" finite and in range' % name, finite(l, r) and pk < 6, 'peak %.1f dBFS' % pk)
+
+    # 10b. the presets built into the plugin (for VST3 / AU / CLAP) match the TTL
+    src = open(os.path.join(HERE, '..', 'plugins', 'taj-mahal', 'TajMahalPlugin.cpp')).read()
+    built = re.findall(r'\{ "([^"]+)",\s*\{([^}]*)\} \}', src)
+    check('built-in presets match presets.ttl (count)', len(built) == len(blocks),
+          '%d built in, %d in TTL' % (len(built), len(blocks)))
+    syms = [s for s in ORDER if s != 'lv2_enabled']
+    for (name, ports), (bname, bvals) in zip(blocks, built):
+        vals = dict((k, float(v)) for k, v in re.findall(r'lv2:symbol "(\w+)" ;\s*pset:value ([-\d.]+)', ports))
+        bv = [float(v) for v in bvals.split(',')]
+        check('built-in preset "%s" matches TTL' % name,
+              bname == name and bv == [vals.get(k) for k in syms], bname)
 
     # 11. silence in, silence out ------------------------------------------------
     sr = 48000

@@ -1,0 +1,24 @@
+@prefix lv2:    <http://lv2plug.in/ns/lv2core#> .
+@prefix modgui: <http://moddevices.com/ns/modgui#> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal>
+    modgui:gui [
+        modgui:resourcesDirectory <modgui> ;
+        modgui:iconTemplate <modgui/icon-tajmahal.html> ;
+        modgui:stylesheet <modgui/stylesheet-tajmahal.css> ;
+        modgui:screenshot <modgui/screenshot-tajmahal.png> ;
+        modgui:thumbnail <modgui/thumbnail-tajmahal.png> ;
+        modgui:brand "New Horizon" ;
+        modgui:label "Taj Mahal" ;
+        modgui:port
+        [ lv2:index 0 ; lv2:symbol "predelay" ; lv2:name "Pre-delay" ; ] ,
+        [ lv2:index 1 ; lv2:symbol "decay" ; lv2:name "Decay" ; ] ,
+        [ lv2:index 2 ; lv2:symbol "diffusion" ; lv2:name "Diffusion" ; ] ,
+        [ lv2:index 3 ; lv2:symbol "chorus_speed" ; lv2:name "Chorus Speed" ; ] ,
+        [ lv2:index 4 ; lv2:symbol "chorus_depth" ; lv2:name "Chorus Depth" ; ] ,
+        [ lv2:index 5 ; lv2:symbol "chorus_feedback" ; lv2:name "Chorus Feedback" ; ] ,
+        [ lv2:index 6 ; lv2:symbol "direct" ; lv2:name "Dry Level" ; ] ,
+        [ lv2:index 7 ; lv2:symbol "reverb_level" ; lv2:name "Reverb Level" ; ] ,
+        [ lv2:index 8 ; lv2:symbol "vintage" ; lv2:name "Vintage" ; ] ,
+        [ lv2:index 9 ; lv2:symbol "tails" ; lv2:name "Tails" ; ] ;
+    ] .

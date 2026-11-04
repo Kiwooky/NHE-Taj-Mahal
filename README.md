@@ -33,6 +33,12 @@ The knobs use the original hardware's scales, so the factory preset's numbers dr
 
 Mono in, stereo out.
 
+### Taj Mahal Stereo
+
+For stereo sources (a keyboard, a stereo chorus or delay before it) there's a second plugin, **Taj Mahal Stereo**: stereo in, stereo out, same controls, face and presets. The left input runs through its own chorus line into one half of the reverb tank and the right input into the other, so the two sides of a stereo source stay distinct in the tail while each still spreads across both outputs. The dry signal stays on its own side, also in bypass.
+
+There's no mono/stereo switch: patch one source into both inputs and it sounds exactly like Taj Mahal. Its package file is `mod-plugin-builder/nhe-taj-mahal-stereo/nhe-taj-mahal-stereo.mk`.
+
 ## Factory presets
 
 | Preset | Character |
@@ -59,6 +65,7 @@ Presets set every control except On/Off, so loading one never bypasses the effec
 
 ```sh
 make                 # builds bin/nhe-taj-mahal.lv2
+make NAME=nhe-taj-mahal-stereo   # builds bin/nhe-taj-mahal-stereo.lv2
 make install DESTDIR=/path PREFIX=/usr
 ```
 
@@ -70,10 +77,12 @@ Testing, the pedal-face workflow and the release checklist are in [docs/developm
 
 | Path | Contents |
 | --- | --- |
-| `plugins/taj-mahal/` | DSP source (C++, DPF) |
+| `plugins/taj-mahal/` | DSP source (C++, DPF), shared by both plugins |
+| `plugins/nhe-taj-mahal-stereo/` | Taj Mahal Stereo: its own name, URI and ID, two inputs; includes the mono source |
 | `bundle/nhe-taj-mahal.lv2/` | LV2 metadata, pedal face (template, CSS, images) |
+| `bundle/nhe-taj-mahal-stereo.lv2/` | Stereo metadata and presets; borrows the mono face, its own images go on top |
 | `assets/source/` | Source artwork and mockup for the face |
-| `mod-plugin-builder/` | Package file for MOD's builder and plugin store |
+| `mod-plugin-builder/` | Package files for MOD's builder and plugin store (one per plugin) |
 | `tools/` | Offline LV2 test host, audio test suite, face renderer, knob filmstrip builder |
 | `docs/` | Sound design and mappings, development process, release checklist |
 | `dpf/` | DISTRHO Plugin Framework, git submodule (ISC) |

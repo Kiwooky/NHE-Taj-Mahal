@@ -6,6 +6,12 @@
  * Chorused hall reverb modelled on the "Taj Mahal" factory preset of a classic
  * 1988 rack multi-effect. See docs/sound-and-design.md for the signal flow and
  * knob mappings.
+ *
+ * This file also builds Taj Mahal Stereo (plugins/nhe-taj-mahal-stereo), with that
+ * folder's DistrhoPluginInfo.h: two inputs, its own name, URI and ID. The only DSP
+ * difference is the input stage (#if DISTRHO_PLUGIN_NUM_INPUTS == 2): each input
+ * gets its own chorus line, and the dry path keeps L and R apart. The same signal
+ * on both inputs gives exactly the mono plugin's output.
  */
 #include "DistrhoPlugin.hpp"
 
@@ -15,10 +21,12 @@
 START_NAMESPACE_DISTRHO
 
 // ---------------------------------------------------------------------------
-// Building blocks. All memory is allocated in the constructor, sized for the
-// highest sample rate we support, so run() never allocates.
+// Building blocks. All memory is allocated for the host's sample rate in the
+// constructor (and again in sampleRateChanged(), which hosts only call while
+// the plugin is stopped), so run() never allocates. On the Duo that's 48 kHz;
+// desktop hosts may run anything up to 384 kHz.
 
-static const double kMaxSampleRate = 96000.0;
+static const double kMaxSampleRate = 384000.0;
 static const double kRefRate       = 29761.0;   // Dattorro reference rate
 static const float  kAntiDenormal  = 1e-18f;
 
@@ -107,12 +115,32 @@ static inline float softClip(float x)
 }
 
 // ---------------------------------------------------------------------------
+// Factory presets, mirrored from presets.ttl so the desktop formats (VST3 / AU /
+// CLAP) get them too. MOD keeps reading the TTL; tools/tmtest.py checks the two
+// match. Order: predelay, decay, diffusion, chorus speed, chorus depth, chorus
+// feedback, direct, reverb level, vintage, tails. Bypass is never set.
+
+struct FactoryPreset { const char* name; float v[kParameterCount - 1]; };
+
+static const FactoryPreset kPresets[] = {
+    { "Taj Mahal (1988 factory)", {  81, 72, 9, 61, 31, 20,  0, 99, 1, 1 } },
+    { "The size of the universe", { 140, 99, 9, 61, 31, 20, 99, 41, 1, 1 } },
+    { "Big empty room",           {  59, 26, 0,  4, 55, 50, 99, 41, 1, 1 } },
+    { "Negative reflections",     { 140,  1, 0,  0, 99, 20, 99, 55, 1, 1 } },
+    { "Houses of Worship",        { 119, 62, 9, 16, 67, 20, 99, 28, 1, 1 } },
+    { "No place too big",         {  81, 72, 9, 61, 31, 20, 99, 55, 1, 1 } },
+    { "Spacy strummer",           {  20, 39, 4, 61, 31, 20, 99, 34, 1, 1 } },
+};
+static const uint32_t kProgramCount = sizeof(kPresets) / sizeof(kPresets[0]);
+static_assert(kBypass == kParameterCount - 1, "presets assume bypass is the last parameter");
+
+// ---------------------------------------------------------------------------
 
 class TajMahalPlugin : public Plugin
 {
 public:
     TajMahalPlugin()
-        : Plugin(kParameterCount, 0, 0)
+        : Plugin(kParameterCount, kProgramCount, 0)
     {
         fParams[kPredelay]       = 81.0f;
         fParams[kDecay]          = 72.0f;
@@ -126,37 +154,19 @@ public:
         fParams[kTails]          = 1.0f;
         fParams[kBypass]         = 0.0f;
 
-        const double k = kMaxSampleRate / kRefRate;
-        const uint32_t mod = (uint32_t)(32.0 * k) + 8;
-
-        fChorus.init((uint32_t)(0.030 * kMaxSampleRate));
-        fPreL.init((uint32_t)(0.150 * kMaxSampleRate));
-        fPreR.init((uint32_t)(0.150 * kMaxSampleRate));
-
-        for (int i = 0; i < 4; ++i) {
-            fInL[i].dl.init((uint32_t)(kInLen[i] * k));
-            fInR[i].dl.init((uint32_t)(kInLen[i] * k));
-        }
-        fApA1.dl.init((uint32_t)(672.0 * k) + mod);
-        fApB1.dl.init((uint32_t)(908.0 * k) + mod);
-        fDlA1.init((uint32_t)(4453.0 * k));
-        fDlB1.init((uint32_t)(4217.0 * k));
-        fApA2.dl.init((uint32_t)(1800.0 * k));
-        fApB2.dl.init((uint32_t)(2656.0 * k));
-        fDlA2.init((uint32_t)(3720.0 * k));
-        fDlB2.init((uint32_t)(3163.0 * k));
+        allocate(getSampleRate());
 
         activate();
     }
 
 protected:
-    const char* getLabel()       const override { return "TajMahal"; }
-    const char* getDescription() const override { return "Huge chorused hall reverb modelled on the Taj Mahal preset of a classic 1988 rack reverb."; }
+    const char* getLabel()       const override { return TAJ_LABEL; }
+    const char* getDescription() const override { return TAJ_DESCRIPTION; }
     const char* getMaker()       const override { return "New Horizon Electronics"; }
-    const char* getHomePage()    const override { return "https://github.com/Kiwooky/NHE-Taj-Mahal"; }
-    const char* getLicense()     const override { return "MIT"; }
-    uint32_t    getVersion()     const override { return d_version(1, 0, 2); }
-    int64_t     getUniqueId()    const override { return d_cconst('T', 'j', 'M', 'h'); }
+    const char* getHomePage()    const override { return TAJ_HOMEPAGE; }
+    const char* getLicense()     const override { return TAJ_LICENSE; }
+    uint32_t    getVersion()     const override { return d_version(TAJ_VERSION); }
+    int64_t     getUniqueId()    const override { return TAJ_UNIQUE_ID; }
 
     void initParameter(uint32_t index, Parameter& p) override
     {
@@ -225,11 +235,60 @@ protected:
         if (index < kParameterCount) fParams[index] = value;
     }
 
+    // Size every buffer for sample rate 'sr'. Lengths scale from the
+    // Dattorro reference rate, plus headroom for the tank modulation.
+    void allocate(double sr)
+    {
+        if (sr <= 0.0) sr = 48000.0;
+        if (sr > kMaxSampleRate) sr = kMaxSampleRate;
+        fAllocRate = sr;
+
+        const double k = sr / kRefRate;
+        const uint32_t mod = (uint32_t)(32.0 * k) + 8;
+
+        fChorus.init((uint32_t)(0.030 * sr));
+#if DISTRHO_PLUGIN_NUM_INPUTS == 2
+        fChorusR.init((uint32_t)(0.030 * sr));
+#endif
+        fPreL.init((uint32_t)(0.150 * sr));
+        fPreR.init((uint32_t)(0.150 * sr));
+
+        for (int i = 0; i < 4; ++i) {
+            fInL[i].dl.init((uint32_t)(kInLen[i] * k));
+            fInR[i].dl.init((uint32_t)(kInLen[i] * k));
+        }
+        fApA1.dl.init((uint32_t)(672.0 * k) + mod);
+        fApB1.dl.init((uint32_t)(908.0 * k) + mod);
+        fDlA1.init((uint32_t)(4453.0 * k));
+        fDlB1.init((uint32_t)(4217.0 * k));
+        fApA2.dl.init((uint32_t)(1800.0 * k));
+        fApB2.dl.init((uint32_t)(2656.0 * k));
+        fDlA2.init((uint32_t)(3720.0 * k));
+        fDlB2.init((uint32_t)(3163.0 * k));
+    }
+
+    void sampleRateChanged(double newSampleRate) override
+    {
+        allocate(newSampleRate);
+    }
+
+    void initProgramName(uint32_t index, String& name) override
+    {
+        if (index < kProgramCount) name = kPresets[index].name;
+    }
+
+    void loadProgram(uint32_t index) override
+    {
+        if (index >= kProgramCount) return;
+        for (uint32_t i = 0; i < kParameterCount - 1; ++i)   // leaves bypass alone
+            fParams[i] = kPresets[index].v[i];
+    }
+
     void activate() override
     {
         fSr = (float)getSampleRate();
         if (fSr <= 0.0f) fSr = 48000.0f;
-        if (fSr > (float)kMaxSampleRate) fSr = (float)kMaxSampleRate;
+        if (fSr > (float)fAllocRate) fSr = (float)fAllocRate;   // never outrun the buffers
         fK = fSr / (float)kRefRate;
 
         clearState();
@@ -253,6 +312,9 @@ protected:
     void clearState()
     {
         fChorus.clear(); fPreL.clear(); fPreR.clear();
+#if DISTRHO_PLUGIN_NUM_INPUTS == 2
+        fChorusR.clear();
+#endif
         for (int i = 0; i < 4; ++i) { fInL[i].dl.clear(); fInR[i].dl.clear(); }
         fApA1.dl.clear(); fApB1.dl.clear(); fApA2.dl.clear(); fApB2.dl.clear();
         fDlA1.clear(); fDlB1.clear(); fDlA2.clear(); fDlB2.clear();
@@ -261,7 +323,12 @@ protected:
 
     void run(const float** inputs, float** outputs, uint32_t frames) override
     {
+#if DISTRHO_PLUGIN_NUM_INPUTS == 2
+        const float* inL  = inputs[0];
+        const float* inR  = inputs[1];
+#else
         const float* in   = inputs[0];
+#endif
         float*       outL = outputs[0];
         float*       outR = outputs[1];
 
@@ -332,23 +399,42 @@ protected:
 
         for (uint32_t i = 0; i < frames; ++i)
         {
-            const float x = in[i];
+            // read both inputs before writing any output: hosts may run in place
+#if DISTRHO_PLUGIN_NUM_INPUTS == 2
+            const float xL = inL[i];
+            const float xR = inR[i];
+#else
+            const float x  = in[i];
+#endif
 
             fInGain  += fadeCoef * (inTarget  - fInGain);
             fWetGain += fadeCoef * (wetTarget - fWetGain);
             fDryGain += fadeCoef * (dryTarget - fDryGain);
-            const float xr = x * fInGain;      // what the chorus/reverb hears
-
             // --- stereo chorus: triangle LFO, taps 180 deg apart ------------
             fLfoPhase += lfoInc;
             if (fLfoPhase >= 1.0f) fLfoPhase -= 1.0f;
             const float triL = 4.0f * std::fabs(fLfoPhase - 0.5f) - 1.0f;
             const float triR = -triL;
+#if DISTRHO_PLUGIN_NUM_INPUTS == 2
+            // one chorus line per input. Each line's feedback comes from the
+            // L-phase tap, as in the mono plugin's single line, so the same
+            // signal on both inputs gives exactly the mono plugin's output.
+            const float xrL = xL * fInGain, xrR = xR * fInGain;   // what the chorus/reverb hears
+            const float cL  = fChorus.tapFrac(chBase + chDep * triL);
+            const float cR  = fChorusR.tapFrac(chBase + chDep * triR);
+            const float cRf = fChorusR.tapFrac(chBase + chDep * triL);
+            fChorus.write(xrL + chFb * cL + kAntiDenormal);
+            fChorusR.write(xrR + chFb * cRf + kAntiDenormal);
+            const float chL = 0.5f * (xrL + cL);
+            const float chR = 0.5f * (xrR + cR);
+#else
+            const float xr = x * fInGain;      // what the chorus/reverb hears
             const float cL = fChorus.tapFrac(chBase + chDep * triL);
             const float cR = fChorus.tapFrac(chBase + chDep * triR);
             fChorus.write(xr + chFb * cL + kAntiDenormal);
             const float chL = 0.5f * (xr + cL);
             const float chR = 0.5f * (xr + cR);
+#endif
 
             // --- pre-delay (smoothed, so knob moves glide instead of click) --
             fPreSmooth += preCoef * (preTarget - fPreSmooth);
@@ -414,8 +500,13 @@ protected:
                 wr = softClip(0.35f * wr) / 0.35f;
             }
 
+#if DISTRHO_PLUGIN_NUM_INPUTS == 2
+            outL[i] = fDryGain * xL + fWetGain * wl;
+            outR[i] = fDryGain * xR + fWetGain * wr;
+#else
             outL[i] = fDryGain * x + fWetGain * wl;
             outR[i] = fDryGain * x + fWetGain * wr;
+#endif
         }
 
         #undef TAP
@@ -427,10 +518,14 @@ private:
     float fParams[kParameterCount];
 
     DelayLine fChorus, fPreL, fPreR;
+#if DISTRHO_PLUGIN_NUM_INPUTS == 2
+    DelayLine fChorusR;
+#endif
     Allpass   fInL[4], fInR[4];
     Allpass   fApA1, fApB1, fApA2, fApB2;
     DelayLine fDlA1, fDlB1, fDlA2, fDlB2;
 
+    double fAllocRate = 48000.0;
     float fSr = 48000.0f, fK = 1.0f;
     float fBwL = 0.0f, fBwR = 0.0f, fDampA = 0.0f, fDampB = 0.0f;
     float fBwCoef = 0.0f, fDampCoef = 0.0f;

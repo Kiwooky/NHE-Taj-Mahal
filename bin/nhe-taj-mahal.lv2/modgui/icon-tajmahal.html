@@ -1,0 +1,28 @@
+<div class="mod-pedal tajmahal{{{cns}}}">
+    <div mod-role="drag-handle" class="mod-drag-handle"></div>
+    <div class="tm-knob tm-predelay" title="Pre-delay" mod-role="input-control-port" mod-port-symbol="predelay"></div>
+    <div class="tm-knob tm-decay" title="Decay" mod-role="input-control-port" mod-port-symbol="decay"></div>
+    <div class="tm-knob tm-diffusion" title="Diffusion" mod-role="input-control-port" mod-port-symbol="diffusion"></div>
+    <div class="tm-knob tm-chorus_speed" title="Chorus Speed" mod-role="input-control-port" mod-port-symbol="chorus_speed"></div>
+    <div class="tm-knob tm-chorus_depth" title="Chorus Depth" mod-role="input-control-port" mod-port-symbol="chorus_depth"></div>
+    <div class="tm-knob tm-chorus_feedback" title="Chorus Feedback" mod-role="input-control-port" mod-port-symbol="chorus_feedback"></div>
+    <div class="tm-knob tm-direct" title="Dry Level" mod-role="input-control-port" mod-port-symbol="direct"></div>
+    <div class="tm-knob tm-reverb_level" title="Reverb Level" mod-role="input-control-port" mod-port-symbol="reverb_level"></div>
+    <div class="tm-button tm-onoff" title="On/Off" mod-role="bypass"></div>
+    <div class="tm-button tm-vintage" title="Vintage" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="vintage"></div>
+    <div class="tm-button tm-tails" title="Tails" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="tails"></div>
+    <div class="mod-pedal-input">
+        {{#effect.ports.audio.input}}
+        <div class="mod-input mod-input-disconnected" title="{{name}}" mod-role="input-audio-port" mod-port-symbol="{{symbol}}">
+            <div class="mod-pedal-input-image"></div>
+        </div>
+        {{/effect.ports.audio.input}}
+    </div>
+    <div class="mod-pedal-output">
+        {{#effect.ports.audio.output}}
+        <div class="mod-output mod-output-disconnected" title="{{name}}" mod-role="output-audio-port" mod-port-symbol="{{symbol}}">
+            <div class="mod-pedal-output-image"></div>
+        </div>
+        {{/effect.ports.audio.output}}
+    </div>
+</div>

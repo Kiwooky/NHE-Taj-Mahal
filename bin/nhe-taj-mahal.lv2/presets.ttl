@@ -1,0 +1,256 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-taj-mahal-1988-factory>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "Taj Mahal (1988 factory)" ;
+    rdfs:comment "The original preset: 100% wet hall with stereo chorus." ;
+    lv2:port [
+        lv2:symbol "predelay" ;
+        pset:value 81.0
+    ] , [
+        lv2:symbol "decay" ;
+        pset:value 72.0
+    ] , [
+        lv2:symbol "diffusion" ;
+        pset:value 9.0
+    ] , [
+        lv2:symbol "chorus_speed" ;
+        pset:value 61.0
+    ] , [
+        lv2:symbol "chorus_depth" ;
+        pset:value 31.0
+    ] , [
+        lv2:symbol "chorus_feedback" ;
+        pset:value 20.0
+    ] , [
+        lv2:symbol "direct" ;
+        pset:value 0.0
+    ] , [
+        lv2:symbol "reverb_level" ;
+        pset:value 99.0
+    ] , [
+        lv2:symbol "vintage" ;
+        pset:value 1.0
+    ] , [
+        lv2:symbol "tails" ;
+        pset:value 1.0
+    ] .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-the-size-of-the-universe>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "The size of the universe" ;
+    lv2:port [
+        lv2:symbol "predelay" ;
+        pset:value 140.0
+    ] , [
+        lv2:symbol "decay" ;
+        pset:value 99.0
+    ] , [
+        lv2:symbol "diffusion" ;
+        pset:value 9.0
+    ] , [
+        lv2:symbol "chorus_speed" ;
+        pset:value 61.0
+    ] , [
+        lv2:symbol "chorus_depth" ;
+        pset:value 31.0
+    ] , [
+        lv2:symbol "chorus_feedback" ;
+        pset:value 20.0
+    ] , [
+        lv2:symbol "direct" ;
+        pset:value 99.0
+    ] , [
+        lv2:symbol "reverb_level" ;
+        pset:value 41.0
+    ] , [
+        lv2:symbol "vintage" ;
+        pset:value 1.0
+    ] , [
+        lv2:symbol "tails" ;
+        pset:value 1.0
+    ] .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-big-empty-room>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "Big empty room" ;
+    lv2:port [
+        lv2:symbol "predelay" ;
+        pset:value 59.0
+    ] , [
+        lv2:symbol "decay" ;
+        pset:value 26.0
+    ] , [
+        lv2:symbol "diffusion" ;
+        pset:value 0.0
+    ] , [
+        lv2:symbol "chorus_speed" ;
+        pset:value 4.0
+    ] , [
+        lv2:symbol "chorus_depth" ;
+        pset:value 55.0
+    ] , [
+        lv2:symbol "chorus_feedback" ;
+        pset:value 50.0
+    ] , [
+        lv2:symbol "direct" ;
+        pset:value 99.0
+    ] , [
+        lv2:symbol "reverb_level" ;
+        pset:value 41.0
+    ] , [
+        lv2:symbol "vintage" ;
+        pset:value 1.0
+    ] , [
+        lv2:symbol "tails" ;
+        pset:value 1.0
+    ] .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-negative-reflections>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "Negative reflections" ;
+    lv2:port [
+        lv2:symbol "predelay" ;
+        pset:value 140.0
+    ] , [
+        lv2:symbol "decay" ;
+        pset:value 1.0
+    ] , [
+        lv2:symbol "diffusion" ;
+        pset:value 0.0
+    ] , [
+        lv2:symbol "chorus_speed" ;
+        pset:value 0.0
+    ] , [
+        lv2:symbol "chorus_depth" ;
+        pset:value 99.0
+    ] , [
+        lv2:symbol "chorus_feedback" ;
+        pset:value 20.0
+    ] , [
+        lv2:symbol "direct" ;
+        pset:value 99.0
+    ] , [
+        lv2:symbol "reverb_level" ;
+        pset:value 55.0
+    ] , [
+        lv2:symbol "vintage" ;
+        pset:value 1.0
+    ] , [
+        lv2:symbol "tails" ;
+        pset:value 1.0
+    ] .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-houses-of-worship>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "Houses of Worship" ;
+    lv2:port [
+        lv2:symbol "predelay" ;
+        pset:value 119.0
+    ] , [
+        lv2:symbol "decay" ;
+        pset:value 62.0
+    ] , [
+        lv2:symbol "diffusion" ;
+        pset:value 9.0
+    ] , [
+        lv2:symbol "chorus_speed" ;
+        pset:value 16.0
+    ] , [
+        lv2:symbol "chorus_depth" ;
+        pset:value 67.0
+    ] , [
+        lv2:symbol "chorus_feedback" ;
+        pset:value 20.0
+    ] , [
+        lv2:symbol "direct" ;
+        pset:value 99.0
+    ] , [
+        lv2:symbol "reverb_level" ;
+        pset:value 28.0
+    ] , [
+        lv2:symbol "vintage" ;
+        pset:value 1.0
+    ] , [
+        lv2:symbol "tails" ;
+        pset:value 1.0
+    ] .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-no-place-too-big>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "No place too big" ;
+    lv2:port [
+        lv2:symbol "predelay" ;
+        pset:value 81.0
+    ] , [
+        lv2:symbol "decay" ;
+        pset:value 72.0
+    ] , [
+        lv2:symbol "diffusion" ;
+        pset:value 9.0
+    ] , [
+        lv2:symbol "chorus_speed" ;
+        pset:value 61.0
+    ] , [
+        lv2:symbol "chorus_depth" ;
+        pset:value 31.0
+    ] , [
+        lv2:symbol "chorus_feedback" ;
+        pset:value 20.0
+    ] , [
+        lv2:symbol "direct" ;
+        pset:value 99.0
+    ] , [
+        lv2:symbol "reverb_level" ;
+        pset:value 55.0
+    ] , [
+        lv2:symbol "vintage" ;
+        pset:value 1.0
+    ] , [
+        lv2:symbol "tails" ;
+        pset:value 1.0
+    ] .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal#preset-spacy-strummer>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "Spacy strummer" ;
+    lv2:port [
+        lv2:symbol "predelay" ;
+        pset:value 20.0
+    ] , [
+        lv2:symbol "decay" ;
+        pset:value 39.0
+    ] , [
+        lv2:symbol "diffusion" ;
+        pset:value 4.0
+    ] , [
+        lv2:symbol "chorus_speed" ;
+        pset:value 61.0
+    ] , [
+        lv2:symbol "chorus_depth" ;
+        pset:value 31.0
+    ] , [
+        lv2:symbol "chorus_feedback" ;
+        pset:value 20.0
+    ] , [
+        lv2:symbol "direct" ;
+        pset:value 99.0
+    ] , [
+        lv2:symbol "reverb_level" ;
+        pset:value 34.0
+    ] , [
+        lv2:symbol "vintage" ;
+        pset:value 1.0
+    ] , [
+        lv2:symbol "tails" ;
+        pset:value 1.0
+    ] .

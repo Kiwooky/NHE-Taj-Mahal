@@ -1,0 +1,44 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal/stereo>
+    a lv2:Plugin , lv2:ReverbPlugin ;
+    lv2:binary <nhe-taj-mahal-stereo_dsp.so> ;
+    rdfs:seeAlso <nhe-taj-mahal-stereo.ttl> , <modgui.ttl> .
+
+# Factory presets
+<https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#preset-taj-mahal-1988-factory>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo> ;
+    rdfs:seeAlso <presets.ttl> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#preset-the-size-of-the-universe>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo> ;
+    rdfs:seeAlso <presets.ttl> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#preset-big-empty-room>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo> ;
+    rdfs:seeAlso <presets.ttl> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#preset-negative-reflections>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo> ;
+    rdfs:seeAlso <presets.ttl> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#preset-houses-of-worship>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo> ;
+    rdfs:seeAlso <presets.ttl> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#preset-no-place-too-big>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo> ;
+    rdfs:seeAlso <presets.ttl> .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#preset-spacy-strummer>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo> ;
+    rdfs:seeAlso <presets.ttl> .

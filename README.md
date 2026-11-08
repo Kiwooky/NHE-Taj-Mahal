@@ -35,7 +35,7 @@ Mono in, stereo out.
 
 ### Taj Mahal Stereo
 
-For stereo sources (a keyboard, a stereo chorus or delay before it) there's a second plugin, **Taj Mahal Stereo**: stereo in, stereo out, same controls, face and presets. The left input runs through its own chorus line into one half of the reverb tank and the right input into the other, so the two sides of a stereo source stay distinct in the tail while each still spreads across both outputs. The dry signal stays on its own side, also in bypass.
+For stereo sources (a keyboard, a stereo chorus or delay before it) there's a second plugin, **Taj Mahal Stereo**: stereo in, stereo out, same controls and presets, and a face with a STEREO badge. The left input runs through its own chorus line into one half of the reverb tank and the right input into the other, so the two sides of a stereo source stay distinct in the tail while each still spreads across both outputs. The dry signal stays on its own side, also in bypass.
 
 There's no mono/stereo switch: patch one source into both inputs and it sounds exactly like Taj Mahal. Its package file is `mod-plugin-builder/nhe-taj-mahal-stereo/nhe-taj-mahal-stereo.mk`.
 

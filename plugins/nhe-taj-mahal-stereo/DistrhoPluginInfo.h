@@ -6,7 +6,7 @@
 // The parameter enum must stay identical to the mono plugin's.
 #define DISTRHO_PLUGIN_BRAND       "New Horizon"
 #define DISTRHO_PLUGIN_NAME        "Taj Mahal Stereo"
-#define DISTRHO_PLUGIN_URI         "https://github.com/Kiwooky/NHE-Taj-Mahal-Stereo"
+#define DISTRHO_PLUGIN_URI         "https://github.com/Kiwooky/NHE-Taj-Mahal/stereo"
 #define TAJ_LABEL                  "TajMahalStereo"
 #define TAJ_DESCRIPTION            "Huge chorused hall reverb, stereo in: modelled on the Taj Mahal preset of a classic 1988 rack reverb."
 #define TAJ_HOMEPAGE               "https://github.com/Kiwooky/NHE-Taj-Mahal"

@@ -4,16 +4,20 @@
 Run `make` first, then:  python3 tools/render.py
 Writes bundle/nhe-taj-mahal.lv2/modgui/screenshot-tajmahal.png and
 thumbnail-tajmahal.png (rebuild afterwards to copy them into bin/).
+Taj Mahal Stereo:  make NAME=nhe-taj-mahal-stereo && python3 tools/render.py nhe-taj-mahal-stereo
+(writes into bundle/nhe-taj-mahal-stereo.lv2/modgui, over the borrowed mono images).
 The face is shown at the factory "Taj Mahal" preset, all buttons on.
 Needs playwright (Chromium) and pillow.
 """
-import re, os, asyncio
+import re, os, sys, asyncio
 from playwright.async_api import async_playwright
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-R = os.path.join(ROOT, 'bin', 'nhe-taj-mahal.lv2', 'modgui')
-OUT = os.path.join(ROOT, 'bundle', 'nhe-taj-mahal.lv2', 'modgui')
+NAME = sys.argv[1] if len(sys.argv) > 1 else 'nhe-taj-mahal'
+R = os.path.join(ROOT, 'bin', NAME + '.lv2', 'modgui')
+OUT = os.path.join(ROOT, 'bundle', NAME + '.lv2', 'modgui')
+os.makedirs(OUT, exist_ok=True)
 
 html = open(R + '/icon-tajmahal.html').read()
 css = open(R + '/stylesheet-tajmahal.css').read()

@@ -1,7 +1,7 @@
 @prefix lv2:    <http://lv2plug.in/ns/lv2core#> .
 @prefix modgui: <http://moddevices.com/ns/modgui#> .
 
-<https://github.com/Kiwooky/NHE-Taj-Mahal-Stereo>
+<https://github.com/Kiwooky/NHE-Taj-Mahal/stereo>
     modgui:gui [
         modgui:resourcesDirectory <modgui> ;
         modgui:iconTemplate <modgui/icon-tajmahal.html> ;

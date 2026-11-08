@@ -14,13 +14,14 @@
 
 ## Taj Mahal Stereo 1.0.0 — unreleased
 
-- New plugin in the same repo: **Taj Mahal Stereo** (`https://github.com/Kiwooky/NHE-Taj-Mahal-Stereo`,
+- New plugin in the same repo: **Taj Mahal Stereo** (`https://github.com/Kiwooky/NHE-Taj-Mahal/stereo`,
   bundle `nhe-taj-mahal-stereo.lv2`), stereo in, stereo out, with its own package file
   `mod-plugin-builder/nhe-taj-mahal-stereo/nhe-taj-mahal-stereo.mk`.
 - Same source as the mono plugin (`#if DISTRHO_PLUGIN_NUM_INPUTS == 2`): one chorus line per input,
   left into tank half A, right into half B, dry kept per side. The same signal on both inputs gives
   the mono plugin's output exactly, so there's no input-mode switch.
-- Same controls, face and seven factory presets. `tools/tmtest_stereo.py` tests it (native and Duo).
+- Same controls and seven factory presets; the face is Niels's stereo panel (STEREO badge by the maker name).
+- Free and MIT like the mono plugin. `tools/tmtest_stereo.py` tests it (native and Duo).
 - The mono plugin's output is unchanged (checked bit for bit against 1.0.2); its strings moved into
   `DistrhoPluginInfo.h` so both builds share one source.
 

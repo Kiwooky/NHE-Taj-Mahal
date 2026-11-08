@@ -15,7 +15,7 @@
 ######################################
 
 # <- after your push, replace the zeros with the full 40-character commit hash
-NHE_TAJ_MAHAL_STEREO_VERSION = 0000000000000000000000000000000000000000
+NHE_TAJ_MAHAL_STEREO_VERSION = c080fef9dc495b2d24939aafde839c6fba9b31e5
 NHE_TAJ_MAHAL_STEREO_SITE = https://github.com/Kiwooky/NHE-Taj-Mahal.git
 NHE_TAJ_MAHAL_STEREO_SITE_METHOD = git
 NHE_TAJ_MAHAL_STEREO_GIT_SUBMODULES = y

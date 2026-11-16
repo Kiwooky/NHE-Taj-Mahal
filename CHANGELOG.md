@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3 (Stereo 1.0.1) — 2026-11-11
+
+- Preset names are now listed in `manifest.ttl` as well as `presets.ttl` (`rdfs:label`, as DPF writes them), so a host can show the names without opening the presets file. Same presets, same sound.
+
 ## Desktop builds — unreleased (both plugins)
 
 - DPF updated to 4238e1c (Oct 2025), which adds the AU target.

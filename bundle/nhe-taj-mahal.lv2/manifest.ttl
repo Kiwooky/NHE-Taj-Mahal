@@ -11,34 +11,41 @@
 <https://github.com/Kiwooky/NHE-Taj-Mahal#preset-taj-mahal-1988-factory>
     a pset:Preset ;
     lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "Taj Mahal (1988 factory)" ;
     rdfs:seeAlso <presets.ttl> .
 
 <https://github.com/Kiwooky/NHE-Taj-Mahal#preset-the-size-of-the-universe>
     a pset:Preset ;
     lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "The size of the universe" ;
     rdfs:seeAlso <presets.ttl> .
 
 <https://github.com/Kiwooky/NHE-Taj-Mahal#preset-big-empty-room>
     a pset:Preset ;
     lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "Big empty room" ;
     rdfs:seeAlso <presets.ttl> .
 
 <https://github.com/Kiwooky/NHE-Taj-Mahal#preset-negative-reflections>
     a pset:Preset ;
     lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "Negative reflections" ;
     rdfs:seeAlso <presets.ttl> .
 
 <https://github.com/Kiwooky/NHE-Taj-Mahal#preset-houses-of-worship>
     a pset:Preset ;
     lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "Houses of Worship" ;
     rdfs:seeAlso <presets.ttl> .
 
 <https://github.com/Kiwooky/NHE-Taj-Mahal#preset-no-place-too-big>
     a pset:Preset ;
     lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "No place too big" ;
     rdfs:seeAlso <presets.ttl> .
 
 <https://github.com/Kiwooky/NHE-Taj-Mahal#preset-spacy-strummer>
     a pset:Preset ;
     lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
+    rdfs:label "Spacy strummer" ;
     rdfs:seeAlso <presets.ttl> .

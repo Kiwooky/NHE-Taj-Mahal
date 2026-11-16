@@ -11,7 +11,7 @@
 #define TAJ_DESCRIPTION            "Huge chorused hall reverb modelled on the Taj Mahal preset of a classic 1988 rack reverb."
 #define TAJ_HOMEPAGE               "https://github.com/Kiwooky/NHE-Taj-Mahal"
 #define TAJ_LICENSE                "MIT"
-#define TAJ_VERSION                1, 0, 2   // d_version: = lv2:minorVersion 2, microVersion 2
+#define TAJ_VERSION                1, 0, 3   // d_version: = lv2:minorVersion 2, microVersion 3
 #define TAJ_UNIQUE_ID              d_cconst('T', 'j', 'M', 'h')
 
 #define DISTRHO_PLUGIN_HAS_UI       0

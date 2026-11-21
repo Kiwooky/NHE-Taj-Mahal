@@ -1,0 +1,5 @@
+# NHE Plugin Factory: desktop builds (https://github.com/Kiwooky/NHE-plugin-factory)
+# Taj Mahal Stereo is left out on purpose (planned as a paid plugin).
+plugins:   [nhe-taj-mahal]
+platforms: [macos, windows-x64, linux-x64, linux-arm64]
+formats:   [lv2, vst3, clap, au]

@@ -1,0 +1,16 @@
+# Copy to .github/workflows/release.yml in a plugin repo.
+# Push a tag (e.g. v1.0.3) and the NHE Plugin Factory builds the plugin for
+# macOS, Windows and Linux and attaches the zips to that tag's Release.
+# "Run workflow" in the Actions tab does a test build without a release.
+name: Release builds
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  factory:
+    uses: Kiwooky/NHE-plugin-factory/.github/workflows/build.yml@main
+    permissions:
+      contents: write   # lets the factory attach zips to this repo's Release

@@ -41,6 +41,26 @@ run `auval -v aufx TjMh Nhzn` (stereo: `TjMs`), then relaunch the host. GarageBa
   plugin with a bypass parameter (checked with a bare test plugin): a DPF issue, not ours.
 - No desktop face yet: hosts show generic controls.
 
+## X11 GUI (Zynthian and other Linux LV2 hosts)
+
+`make X11UI=1` (and `sudo make install X11UI=1`) adds `<bundle>_x11ui.so` and a `ui:X11UI` entry to the
+built manifest, for hosts that can't show the MOD face: Zynthian (in its VNC window), Carla, Ardour,
+Jalv. It draws the MOD face's own artwork from `modgui/`, scaled to the window and centred, with black
+margins. Contributed by Maarten (Zynthian community). Needs `libx11-dev libimlib2-dev lv2-dev`; Linux only.
+The NHE Plugin Factory builds it into the linux-arm64 LV2 zips (`x11ui:` in `factory.yml`).
+Plain `make`, the MOD package and `make desktop` don't touch it, and nothing in `bundle/` changes.
+
+- **One source, both plugins:** `plugins/taj-mahal/x11ui/nhe-taj-mahal_x11ui.c`. The stereo build passes
+  `NHE_PORT_OFFSET=1` (its control ports sit one higher) and its own URI; its face brings the STEREO panel.
+- **Hand-typed table:** the control list (port, range, default, position) is copied from the TTL and
+  `stylesheet-tajmahal.css`. **Any port or face change: run `python3 tools/check_x11ui.py`** and fix the
+  table if it complains.
+- **Sizes:** opens at 600×350 (the MOD face's CSS size). The host sets the window size; the panel keeps
+  its proportions. The art is 2× (1200×700), so it stays sharp up to 1200×700 and softens beyond.
+  It doesn't tell the host a preferred, minimum or fixed size (`ui:resize`).
+- **Draws the panel, knobs and LED buttons only:** no value readouts or tooltips (the MOD face has none either).
+- **Not the desktop face.** VST3/AU/CLAP need a DPF UI; see the plugin factory notes.
+
 ## Rules learned the hard way
 
 - **DPF needs `opts:options` and `urid:map`** declared as required features.

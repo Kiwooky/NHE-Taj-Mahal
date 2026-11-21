@@ -1,5 +1,14 @@
 # Changelog
 
+## X11 GUI — unreleased (both plugins)
+
+- Optional X11 GUI for Linux LV2 hosts (Zynthian, Carla, Ardour, Jalv), contributed by Maarten:
+  `make X11UI=1`. It draws the MOD face's artwork and scales with the window. One source serves
+  both plugins (the stereo build shifts its ports by one and uses its STEREO panel).
+- Release zips for linux-arm64 (Zynthian, 64-bit Pi OS) include it, built by the NHE Plugin Factory.
+- `tools/check_x11ui.py` checks the GUI's control table against the TTL and the face CSS.
+- MOD builds, desktop builds and `bundle/` are unchanged. No version bump: the plugin itself is the same.
+
 ## 1.0.3 (Stereo 1.0.1) — 2026-11-11
 
 - Preset names are now listed in `manifest.ttl` as well as `presets.ttl` (`rdfs:label`, as DPF writes them), so a host can show the names without opening the presets file. Same presets, same sound.

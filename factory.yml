@@ -1,5 +1,7 @@
 # NHE Plugin Factory: desktop builds (https://github.com/Kiwooky/NHE-plugin-factory)
-# Taj Mahal Stereo is left out on purpose (planned as a paid plugin).
-plugins:   [nhe-taj-mahal]
+# Both plugins are free and MIT (recreations stay open source, stereo included).
+plugins:   [nhe-taj-mahal, nhe-taj-mahal-stereo]
 platforms: [macos, windows-x64, linux-x64, linux-arm64]
 formats:   [lv2, vst3, clap, au]
+# X11 GUI (Maarten's pedal-face window for Zynthian etc.) in the linux-arm64 LV2 zips
+x11ui:     [nhe-taj-mahal, nhe-taj-mahal-stereo]

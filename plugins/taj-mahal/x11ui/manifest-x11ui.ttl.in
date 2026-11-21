@@ -1,0 +1,12 @@
+
+# X11 GUI for Linux LV2 hosts (Zynthian, Carla, Ardour...). Appended to the
+# built manifest only by `make X11UI=1`; MOD ignores it either way.
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> .
+
+<@PLUGIN_URI@>
+    ui:ui <@PLUGIN_URI@#X11UI> .
+
+<@PLUGIN_URI@#X11UI>
+    a ui:X11UI ;
+    lv2:binary <@BUNDLE@_x11ui.so> ;
+    lv2:extensionData ui:idleInterface , ui:showInterface .

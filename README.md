@@ -57,6 +57,8 @@ Presets set every control except On/Off, so loading one never bypasses the effec
 
 **Test builds:** upload `mod-plugin-builder/nhe-taj-mahal/nhe-taj-mahal.mk` to <https://builder.mod.audio/buildroot> with your MOD connected over USB, then click Install. Set `NHE_TAJ_MAHAL_VERSION` in that file to the commit you want to build.
 
+**Zynthian, Carla and other Linux LV2 hosts:** `make X11UI=1 && sudo make install X11UI=1` adds a window with the pedal face (see [docs/development.md](docs/development.md#x11-gui-zynthian-and-other-linux-lv2-hosts)).
+
 **MOD Plugin Store:** not yet. See [docs/release.md](docs/release.md).
 
 **Coming from the cookbook version?** This release has its own identity (URI, bundle and maker), so it installs alongside the earlier `urn:mod-cookbook:taj-mahal` prototype. Pedalboards that use the prototype keep using it until you swap it for this one.

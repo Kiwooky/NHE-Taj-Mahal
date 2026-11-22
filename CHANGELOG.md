@@ -1,13 +1,24 @@
 # Changelog
 
-## X11 GUI — unreleased (both plugins)
+## 1.0.4 (Stereo 1.0.2) — unreleased
+
+- Presets no longer set the mix (Direct, Reverb Level): loading one keeps your dry/wet balance.
+  Same rule as every NHE plugin. The reverb settings themselves are unchanged.
+- VST3, AU and CLAP start at Direct 99 / Reverb Level 50, which suits a DAW insert. MOD (LV2) keeps
+  the 1988 preset's 100% wet start.
+- AU: knobs are no longer whole-number ("indexed") parameters, so GarageBand and Logic show their
+  values instead of 0.0. VST3 and CLAP keep stepped knobs.
+- Desktop builds come from the NHE Plugin Factory, which also fixes two DPF AU bugs (a mono-in
+  plugin failing `auval`'s connection test; the host's bypass button not following the Bypass control).
+
+### X11 GUI (both plugins)
 
 - Optional X11 GUI for Linux LV2 hosts (Zynthian, Carla, Ardour, Jalv), contributed by Maarten:
   `make X11UI=1`. It draws the MOD face's artwork and scales with the window. One source serves
   both plugins (the stereo build shifts its ports by one and uses its STEREO panel).
 - Release zips for linux-arm64 (Zynthian, 64-bit Pi OS) include it, built by the NHE Plugin Factory.
 - `tools/check_x11ui.py` checks the GUI's control table against the TTL and the face CSS.
-- MOD builds, desktop builds and `bundle/` are unchanged. No version bump: the plugin itself is the same.
+- MOD builds and desktop builds are unaffected by it; `bundle/` is unchanged.
 
 ## 1.0.3 (Stereo 1.0.1) — 2026-11-11
 

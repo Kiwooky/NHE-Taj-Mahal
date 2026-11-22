@@ -25,13 +25,15 @@ The knobs use the original hardware's scales, so the factory preset's numbers dr
 | Speed | 0–99 | 61 | Chorus rate, 0.1–10 Hz (61 ≈ 1.7 Hz) |
 | Depth | 0–99 | 31 | Chorus depth, up to ±4 ms |
 | Feedback | 0–99 % | 20 | Chorus feedback |
-| Dry Level | 0–99 | 0 | Dry signal in the mix (the preset is 100% wet) |
-| Reverb Level | 0–99 | 99 | Reverb in the mix; 99 is about unity |
+| Dry Level | 0–99 | 0 on MOD, 99 in DAWs | Dry signal in the mix |
+| Reverb Level | 0–99 | 99 on MOD, 50 in DAWs | Reverb in the mix; 99 is about unity |
 | On/Off | | On | Bypass, handled by the plugin; dry passes at unity |
 | Vintage | on/off | On | 16-bit tank and gentle saturation |
 | Tails | on/off | On | On: bypass lets the reverb ring out. Off: bypass cuts it |
 
 Mono in, stereo out.
+
+On MOD it starts 100% wet, like the original preset (the Quadraverb sat in an effects loop). As VST3, AU or CLAP on a DAW insert it starts with the dry signal at full level and the reverb at half.
 
 ### Taj Mahal Stereo
 
@@ -43,7 +45,7 @@ There's no mono/stereo switch: patch one source into both inputs and it sounds e
 
 | Preset | Character |
 | --- | --- |
-| Taj Mahal (1988 factory) | The original: 100% wet chorused hall, 81 ms pre-delay |
+| Taj Mahal (1988 factory) | The original chorused hall, 81 ms pre-delay |
 | No place too big | The same hall blended under your dry signal |
 | The size of the universe | Longest decay and pre-delay: an endless wash |
 | Houses of Worship | Slow, deep chorus into a long, late-arriving hall |
@@ -51,7 +53,7 @@ There's no mono/stereo switch: patch one source into both inputs and it sounds e
 | Big empty room | Short decay, no diffusion, slow chorus with heavy feedback |
 | Negative reflections | Shortest decay, maximum pre-delay and chorus depth: a wobbling slap |
 
-Presets set every control except On/Off, so loading one never bypasses the effect.
+Presets set every control except the mix (Dry Level, Reverb Level) and On/Off, so loading one keeps your dry/wet balance and never bypasses the effect.
 
 ## Install
 

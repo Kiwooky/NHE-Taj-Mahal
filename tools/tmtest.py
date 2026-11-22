@@ -152,8 +152,9 @@ def main():
     pn = np.zeros(sr * 8); pn[:sr * 2] = rs.randn(sr * 2) * 0.25
     for name, ports in blocks:
         vals = dict((k, float(v)) for k, v in re.findall(r'lv2:symbol "(\w+)" ;\s*pset:value ([-\d.]+)', ports))
-        check('preset "%s" sets every control but bypass' % name,
-              set(vals) == set(ORDER) - {'lv2_enabled'}, ','.join(sorted(set(ORDER) ^ set(vals) ^ {'lv2_enabled'})))
+        want = set(ORDER) - {'lv2_enabled', 'direct', 'reverb_level'}   # presets never set the mix
+        check('preset "%s" sets every control but mix and bypass' % name,
+              set(vals) == want, ','.join(sorted(want ^ set(vals))))
         l, r = run(pn, sr, **vals)
         pk = db(max(np.abs(l).max(), np.abs(r).max()))
         check('preset "%s" finite and in range' % name, finite(l, r) and pk < 6, 'peak %.1f dBFS' % pk)
@@ -163,7 +164,7 @@ def main():
     built = re.findall(r'\{ "([^"]+)",\s*\{([^}]*)\} \}', src)
     check('built-in presets match presets.ttl (count)', len(built) == len(blocks),
           '%d built in, %d in TTL' % (len(built), len(blocks)))
-    syms = [s for s in ORDER if s != 'lv2_enabled']
+    syms = [s for s in ORDER if s not in ('lv2_enabled', 'direct', 'reverb_level')]
     for (name, ports), (bname, bvals) in zip(blocks, built):
         vals = dict((k, float(v)) for k, v in re.findall(r'lv2:symbol "(\w+)" ;\s*pset:value ([-\d.]+)', ports))
         bv = [float(v) for v in bvals.split(',')]

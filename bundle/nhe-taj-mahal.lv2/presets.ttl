@@ -6,7 +6,7 @@
     a pset:Preset ;
     lv2:appliesTo <https://github.com/Kiwooky/NHE-Taj-Mahal> ;
     rdfs:label "Taj Mahal (1988 factory)" ;
-    rdfs:comment "The original preset: 100% wet hall with stereo chorus." ;
+    rdfs:comment "The original preset: a big hall with stereo chorus. It ran 100% wet; like every preset here it leaves your mix as it is." ;
     lv2:port [
         lv2:symbol "predelay" ;
         pset:value 81.0
@@ -25,12 +25,6 @@
     ] , [
         lv2:symbol "chorus_feedback" ;
         pset:value 20.0
-    ] , [
-        lv2:symbol "direct" ;
-        pset:value 0.0
-    ] , [
-        lv2:symbol "reverb_level" ;
-        pset:value 99.0
     ] , [
         lv2:symbol "vintage" ;
         pset:value 1.0
@@ -62,12 +56,6 @@
         lv2:symbol "chorus_feedback" ;
         pset:value 20.0
     ] , [
-        lv2:symbol "direct" ;
-        pset:value 99.0
-    ] , [
-        lv2:symbol "reverb_level" ;
-        pset:value 41.0
-    ] , [
         lv2:symbol "vintage" ;
         pset:value 1.0
     ] , [
@@ -97,12 +85,6 @@
     ] , [
         lv2:symbol "chorus_feedback" ;
         pset:value 50.0
-    ] , [
-        lv2:symbol "direct" ;
-        pset:value 99.0
-    ] , [
-        lv2:symbol "reverb_level" ;
-        pset:value 41.0
     ] , [
         lv2:symbol "vintage" ;
         pset:value 1.0
@@ -134,12 +116,6 @@
         lv2:symbol "chorus_feedback" ;
         pset:value 20.0
     ] , [
-        lv2:symbol "direct" ;
-        pset:value 99.0
-    ] , [
-        lv2:symbol "reverb_level" ;
-        pset:value 55.0
-    ] , [
         lv2:symbol "vintage" ;
         pset:value 1.0
     ] , [
@@ -169,12 +145,6 @@
     ] , [
         lv2:symbol "chorus_feedback" ;
         pset:value 20.0
-    ] , [
-        lv2:symbol "direct" ;
-        pset:value 99.0
-    ] , [
-        lv2:symbol "reverb_level" ;
-        pset:value 28.0
     ] , [
         lv2:symbol "vintage" ;
         pset:value 1.0
@@ -206,12 +176,6 @@
         lv2:symbol "chorus_feedback" ;
         pset:value 20.0
     ] , [
-        lv2:symbol "direct" ;
-        pset:value 99.0
-    ] , [
-        lv2:symbol "reverb_level" ;
-        pset:value 55.0
-    ] , [
         lv2:symbol "vintage" ;
         pset:value 1.0
     ] , [
@@ -241,12 +205,6 @@
     ] , [
         lv2:symbol "chorus_feedback" ;
         pset:value 20.0
-    ] , [
-        lv2:symbol "direct" ;
-        pset:value 99.0
-    ] , [
-        lv2:symbol "reverb_level" ;
-        pset:value 34.0
     ] , [
         lv2:symbol "vintage" ;
         pset:value 1.0

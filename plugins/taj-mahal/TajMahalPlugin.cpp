@@ -14,8 +14,10 @@
  * on both inputs gives exactly the mono plugin's output.
  */
 #include "DistrhoPlugin.hpp"
+#include "DistrhoPluginUtils.hpp"   // getPluginFormatName()
 
 #include <cmath>
+#include <cstring>
 #include <vector>
 
 START_NAMESPACE_DISTRHO
@@ -115,24 +117,41 @@ static inline float softClip(float x)
 }
 
 // ---------------------------------------------------------------------------
+// Where the plugin runs. LV2 (MOD, MOD Desktop, MODEP, Zynthian) keeps the 1988
+// preset's 100% wet start: the original sat in an effects loop. VST3 / AU / CLAP
+// sit on a DAW insert, so they start with the dry signal at full level and the
+// reverb at half. (For LV2 the TTL defaults are what hosts read; these match them.)
+
+static bool isLV2() { return std::strcmp(getPluginFormatName(), "LV2") == 0; }
+static bool isAU()  { return std::strcmp(getPluginFormatName(), "AudioUnit") == 0; }
+
+static float defaultDirect()      { return isLV2() ?  0.0f : 99.0f; }
+static float defaultReverbLevel() { return isLV2() ? 99.0f : 50.0f; }
+
+// ---------------------------------------------------------------------------
 // Factory presets, mirrored from presets.ttl so the desktop formats (VST3 / AU /
 // CLAP) get them too. MOD keeps reading the TTL; tools/tmtest.py checks the two
-// match. Order: predelay, decay, diffusion, chorus speed, chorus depth, chorus
-// feedback, direct, reverb level, vintage, tails. Bypass is never set.
+// match. Presets never set the mix (Direct, Reverb Level) or Bypass, so loading
+// one keeps the player's dry/wet balance.
 
-struct FactoryPreset { const char* name; float v[kParameterCount - 1]; };
+static const uint32_t kPresetParams[] = {
+    kPredelay, kDecay, kDiffusion, kChorusSpeed, kChorusDepth, kChorusFeedback, kVintage, kTails,
+};
+static const uint32_t kPresetParamCount = sizeof(kPresetParams) / sizeof(kPresetParams[0]);
+
+struct FactoryPreset { const char* name; float v[kPresetParamCount]; };
 
 static const FactoryPreset kPresets[] = {
-    { "Taj Mahal (1988 factory)", {  81, 72, 9, 61, 31, 20,  0, 99, 1, 1 } },
-    { "The size of the universe", { 140, 99, 9, 61, 31, 20, 99, 41, 1, 1 } },
-    { "Big empty room",           {  59, 26, 0,  4, 55, 50, 99, 41, 1, 1 } },
-    { "Negative reflections",     { 140,  1, 0,  0, 99, 20, 99, 55, 1, 1 } },
-    { "Houses of Worship",        { 119, 62, 9, 16, 67, 20, 99, 28, 1, 1 } },
-    { "No place too big",         {  81, 72, 9, 61, 31, 20, 99, 55, 1, 1 } },
-    { "Spacy strummer",           {  20, 39, 4, 61, 31, 20, 99, 34, 1, 1 } },
+    //                              pre  dec dif  cs  cd  cf  vin tails
+    { "Taj Mahal (1988 factory)", {  81, 72, 9, 61, 31, 20, 1, 1 } },
+    { "The size of the universe", { 140, 99, 9, 61, 31, 20, 1, 1 } },
+    { "Big empty room",           {  59, 26, 0,  4, 55, 50, 1, 1 } },
+    { "Negative reflections",     { 140,  1, 0,  0, 99, 20, 1, 1 } },
+    { "Houses of Worship",        { 119, 62, 9, 16, 67, 20, 1, 1 } },
+    { "No place too big",         {  81, 72, 9, 61, 31, 20, 1, 1 } },
+    { "Spacy strummer",           {  20, 39, 4, 61, 31, 20, 1, 1 } },
 };
 static const uint32_t kProgramCount = sizeof(kPresets) / sizeof(kPresets[0]);
-static_assert(kBypass == kParameterCount - 1, "presets assume bypass is the last parameter");
 
 // ---------------------------------------------------------------------------
 
@@ -148,8 +167,8 @@ public:
         fParams[kChorusSpeed]    = 61.0f;
         fParams[kChorusDepth]    = 31.0f;
         fParams[kChorusFeedback] = 20.0f;
-        fParams[kDirect]         = 0.0f;
-        fParams[kReverbLevel]    = 99.0f;
+        fParams[kDirect]         = defaultDirect();
+        fParams[kReverbLevel]    = defaultReverbLevel();
         fParams[kVintage]        = 1.0f;
         fParams[kTails]          = 1.0f;
         fParams[kBypass]         = 0.0f;
@@ -170,7 +189,9 @@ protected:
 
     void initParameter(uint32_t index, Parameter& p) override
     {
-        p.hints = kParameterIsAutomatable | kParameterIsInteger;
+        // whole-number knobs, except in AU: there DPF turns integers into "indexed"
+        // parameters without step names, and GarageBand then shows 0.0 for every value
+        p.hints = kParameterIsAutomatable | (isAU() ? 0x0 : kParameterIsInteger);
         p.ranges.min = 0.0f;
         p.ranges.max = 99.0f;
 
@@ -201,11 +222,11 @@ protected:
             break;
         case kDirect:
             p.name = "Direct"; p.symbol = "direct";
-            p.ranges.def = 0.0f;
+            p.ranges.def = defaultDirect();
             break;
         case kReverbLevel:
             p.name = "Reverb Level"; p.symbol = "reverb_level";
-            p.ranges.def = 99.0f;
+            p.ranges.def = defaultReverbLevel();
             break;
         case kVintage:
             p.hints |= kParameterIsBoolean;
@@ -280,8 +301,8 @@ protected:
     void loadProgram(uint32_t index) override
     {
         if (index >= kProgramCount) return;
-        for (uint32_t i = 0; i < kParameterCount - 1; ++i)   // leaves bypass alone
-            fParams[i] = kPresets[index].v[i];
+        for (uint32_t i = 0; i < kPresetParamCount; ++i)   // leaves mix and bypass alone
+            fParams[kPresetParams[i]] = kPresets[index].v[i];
     }
 
     void activate() override

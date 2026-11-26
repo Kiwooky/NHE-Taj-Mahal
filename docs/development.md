@@ -61,6 +61,13 @@ Plain `make`, the MOD package and `make desktop` don't touch it, and nothing in 
 - **Draws the panel, knobs and LED buttons only:** no value readouts or tooltips (the MOD face has none either).
 - **Not the desktop face.** VST3/AU/CLAP need a DPF UI; see the plugin factory notes.
 
+## The manual
+
+`bundle/nhe-taj-mahal.lv2/modgui/manual.pdf`, shown by MOD's "See documentation" button, is built
+with `python3 tools/make_manual.py` (needs reportlab and Pillow). It reads both versions, the presets
+and the two face screenshots, so rebuild it after a version bump, a preset change or a face change.
+The stereo plugin uses the same file.
+
 ## Rules learned the hard way
 
 - **DPF needs `opts:options` and `urid:map`** declared as required features.

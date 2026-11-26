@@ -1,6 +1,7 @@
 @prefix doap:  <http://usefulinc.com/ns/doap#> .
 @prefix foaf:  <http://xmlns.com/foaf/0.1/> .
 @prefix lv2:   <http://lv2plug.in/ns/lv2core#> .
+@prefix pg:    <http://lv2plug.in/ns/ext/port-groups#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix units: <http://lv2plug.in/ns/extensions/units#> .
 
@@ -14,7 +15,7 @@
     ] ;
     rdfs:comment "Huge chorused hall reverb, stereo in: modelled on the Taj Mahal preset of a classic 1988 rack reverb." ;
     lv2:minorVersion 2 ;
-    lv2:microVersion 2 ;
+    lv2:microVersion 3 ;
     lv2:optionalFeature lv2:hardRTCapable ;
     lv2:requiredFeature <http://lv2plug.in/ns/ext/options#options> ,
                         <http://lv2plug.in/ns/ext/urid#map> ;
@@ -43,6 +44,7 @@
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 4 ;
         lv2:symbol "predelay" ;
+        pg:group <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_reverb> ;
         lv2:name "Pre-delay" ;
         lv2:default 81 ;
         lv2:minimum 0 ;
@@ -53,6 +55,7 @@
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 5 ;
         lv2:symbol "decay" ;
+        pg:group <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_reverb> ;
         lv2:name "Decay" ;
         lv2:default 72 ;
         lv2:minimum 1 ;
@@ -62,6 +65,7 @@
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 6 ;
         lv2:symbol "diffusion" ;
+        pg:group <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_reverb> ;
         lv2:name "Diffusion" ;
         lv2:default 9 ;
         lv2:minimum 0 ;
@@ -71,6 +75,7 @@
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 7 ;
         lv2:symbol "chorus_speed" ;
+        pg:group <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_chorus> ;
         lv2:name "Chorus Speed" ;
         lv2:default 61 ;
         lv2:minimum 0 ;
@@ -80,6 +85,7 @@
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 8 ;
         lv2:symbol "chorus_depth" ;
+        pg:group <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_chorus> ;
         lv2:name "Chorus Depth" ;
         lv2:default 31 ;
         lv2:minimum 0 ;
@@ -89,6 +95,7 @@
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 9 ;
         lv2:symbol "chorus_feedback" ;
+        pg:group <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_chorus> ;
         lv2:name "Chorus Feedback" ;
         lv2:default 20 ;
         lv2:minimum 0 ;
@@ -99,7 +106,8 @@
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 10 ;
         lv2:symbol "direct" ;
-        lv2:name "Direct" ;
+        pg:group <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_output> ;
+        lv2:name "Dry Level" ;
         lv2:default 0 ;
         lv2:minimum 0 ;
         lv2:maximum 99 ;
@@ -108,6 +116,7 @@
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 11 ;
         lv2:symbol "reverb_level" ;
+        pg:group <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_output> ;
         lv2:name "Reverb Level" ;
         lv2:default 99 ;
         lv2:minimum 0 ;
@@ -117,6 +126,7 @@
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 12 ;
         lv2:symbol "vintage" ;
+        pg:group <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_output> ;
         lv2:name "Vintage" ;
         lv2:default 1 ;
         lv2:minimum 0 ;
@@ -126,6 +136,7 @@
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 13 ;
         lv2:symbol "tails" ;
+        pg:group <https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_output> ;
         lv2:name "Tails" ;
         lv2:default 1 ;
         lv2:minimum 0 ;
@@ -142,3 +153,25 @@
         lv2:portProperty lv2:integer , lv2:toggled ;
         lv2:designation lv2:enabled
     ] .
+
+# Port groups, in the order of the panel: Reverb, Chorus, Output.
+# MOD lists groups by lv2:index (else alphabetically), then ports by index;
+# an OS without group support uses port index alone, which is the same order.
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_reverb>
+    a pg:InputGroup ;
+    lv2:index 0 ;
+    lv2:name "Reverb" ;
+    lv2:symbol "reverb" .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_chorus>
+    a pg:InputGroup ;
+    lv2:index 1 ;
+    lv2:name "Chorus" ;
+    lv2:symbol "chorus" .
+
+<https://github.com/Kiwooky/NHE-Taj-Mahal/stereo#portGroup_output>
+    a pg:InputGroup ;
+    lv2:index 2 ;
+    lv2:name "Output" ;
+    lv2:symbol "output" .

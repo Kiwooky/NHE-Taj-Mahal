@@ -221,7 +221,7 @@ protected:
             p.ranges.def = 20.0f;
             break;
         case kDirect:
-            p.name = "Direct"; p.symbol = "direct";
+            p.name = "Dry Level"; p.symbol = "direct";
             p.ranges.def = defaultDirect();
             break;
         case kReverbLevel:
@@ -244,6 +244,18 @@ protected:
             p.initDesignation(kParameterDesignationBypass);
             break;
         }
+
+        // groups, as on the panel: Reverb, Chorus, Output (bypass stays ungrouped)
+        if (index <= kDiffusion)            p.groupId = kGroupReverb;
+        else if (index <= kChorusFeedback)  p.groupId = kGroupChorus;
+        else if (index <= kTails)           p.groupId = kGroupOutput;
+    }
+
+    void initPortGroup(uint32_t groupId, PortGroup& g) override
+    {
+        static const char* const names[kGroupCount]   = { "Reverb", "Chorus", "Output" };
+        static const char* const symbols[kGroupCount] = { "reverb", "chorus", "output" };
+        if (groupId < kGroupCount) { g.name = names[groupId]; g.symbol = symbols[groupId]; }
     }
 
     float getParameterValue(uint32_t index) const override

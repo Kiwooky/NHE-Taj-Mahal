@@ -11,7 +11,7 @@
 #define TAJ_DESCRIPTION            "Huge chorused hall reverb modelled on the Taj Mahal preset of a classic 1988 rack reverb."
 #define TAJ_HOMEPAGE               "https://github.com/Kiwooky/NHE-Taj-Mahal"
 #define TAJ_LICENSE                "MIT"
-#define TAJ_VERSION                1, 0, 4   // d_version: = lv2:minorVersion 2, microVersion 4
+#define TAJ_VERSION                1, 0, 5   // d_version: = lv2:minorVersion 2, microVersion 5
 #define TAJ_UNIQUE_ID              d_cconst('T', 'j', 'M', 'h')
 
 #define DISTRHO_PLUGIN_HAS_UI       0
@@ -42,6 +42,14 @@ enum Parameters {
     kTails,
     kBypass,
     kParameterCount
+};
+
+// Port groups, in the order MOD lists them (the TTL gives each its lv2:index).
+enum PortGroups {
+    kGroupReverb = 0,
+    kGroupChorus,
+    kGroupOutput,
+    kGroupCount
 };
 
 #endif

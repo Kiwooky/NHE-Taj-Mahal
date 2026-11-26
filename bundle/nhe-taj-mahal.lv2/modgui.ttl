@@ -8,6 +8,7 @@
         modgui:stylesheet <modgui/stylesheet-tajmahal.css> ;
         modgui:screenshot <modgui/screenshot-tajmahal.png> ;
         modgui:thumbnail <modgui/thumbnail-tajmahal.png> ;
+        modgui:documentation <modgui/manual.pdf> ;
         modgui:brand "New Horizon" ;
         modgui:label "Taj Mahal" ;
         modgui:port

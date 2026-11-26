@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.0.5 (Stereo 1.0.3) — unreleased
+
+- **User manual** inside both plugins: a 4-page PDF behind MOD's "See documentation" button
+  (the ⓘ on the pedal, or the plugin's entry in the plugin bar). Quick start, every control,
+  On/Off and Tails, the seven presets, the stereo version, tips. One file serves both plugins
+  (`bundle/nhe-taj-mahal.lv2/modgui/manual.pdf`, linked as `modgui:documentation` in both
+  `modgui.ttl` files; the stereo build copies the mono `modgui/` folder). Built by
+  `tools/make_manual.py`, which reads the versions and presets from the source.
+- **Port groups** in the plugin's settings, in the order of the panel: Reverb (Pre-delay, Decay,
+  Diffusion), Chorus (Speed, Depth, Feedback), Output (Dry Level, Reverb Level, Vintage, Tails).
+  Zynthian's parameter pages and DAW hosts (VST3, AU, CLAP) group them the same way. Each group has
+  an `lv2:index`, which MOD OS 1.14 sorts by; older mod-ui (1.13, pi-Stomp, MODEP) lists them in
+  reverse. Suggested by Maarten (Zynthian).
+- "Direct" is now called **Dry Level** in hosts, to match the panel. Same port (`direct`), so saved
+  pedalboards, presets and automation are unaffected.
+- No change to the sound.
+
 ## 1.0.4 (Stereo 1.0.2) — unreleased
 
 - Presets no longer set the mix (Direct, Reverb Level): loading one keeps your dry/wet balance.
